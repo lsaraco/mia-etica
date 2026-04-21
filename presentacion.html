@@ -1,0 +1,1325 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Presentación - Ética de la IA</title>
+  <style>
+    :root {
+      --bg: #f4efe7;
+      --paper: #fbf8f2;
+      --ink: #213934;
+      --muted: #5d625d;
+      --line: #d8cfc2;
+      --accent: #b25f3a;
+      --accent-2: #6a8258;
+      --accent-3: #d69f39;
+      --shadow: 0 24px 60px rgba(60, 44, 22, 0.12);
+      --radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at top left, rgba(178, 95, 58, 0.10), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(106, 130, 88, 0.11), transparent 30%),
+        linear-gradient(180deg, #f6f1e9 0%, #efe6d9 100%);
+      color: var(--ink);
+      font-family: "Aptos", "Segoe UI", "Trebuchet MS", sans-serif;
+    }
+
+    body {
+      padding: 28px;
+    }
+
+    .deck {
+      max-width: 1320px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .slide {
+      display: none;
+      min-height: calc(100vh - 56px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.85));
+      border: 1px solid rgba(121, 97, 68, 0.14);
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slide.active {
+      display: grid;
+    }
+
+    .slide-grid {
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .band {
+      background: var(--ink);
+      color: #f8f5ef;
+      padding: 14px 28px;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .content {
+      padding: 34px 44px 28px;
+      display: grid;
+      gap: 24px;
+      align-content: start;
+    }
+
+    .title {
+      margin: 0;
+      font-family: Georgia, "Palatino Linotype", serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1.05;
+      color: var(--ink);
+      max-width: 85%;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 70ch;
+    }
+
+    .single-col {
+      display: grid;
+      gap: 22px;
+    }
+
+    .kicker {
+      display: inline-block;
+      align-self: start;
+      background: rgba(178, 95, 58, 0.12);
+      color: var(--accent);
+      border: 1px solid rgba(178, 95, 58, 0.18);
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px 24px 20px;
+      box-shadow: 0 8px 24px rgba(74, 63, 42, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 14px;
+      font-size: 1.25rem;
+      color: var(--accent);
+      font-family: Georgia, "Palatino Linotype", serif;
+    }
+
+    .card.green h3 {
+      color: var(--accent-2);
+    }
+
+    .card.gold h3 {
+      color: #9b6a00;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 1.15rem;
+    }
+
+    li {
+      margin: 0 0 12px;
+      line-height: 1.35;
+      font-size: 1.02rem;
+    }
+
+    .hero {
+      grid-template-columns: 0.95fr 1.25fr;
+    }
+
+    .hero-panel {
+      background:
+        linear-gradient(160deg, rgba(33,57,52,0.98), rgba(43,76,67,0.95)),
+        linear-gradient(45deg, rgba(255,255,255,0.08), transparent 55%);
+      color: #f7f2eb;
+      padding: 42px;
+      display: grid;
+      align-content: start;
+      row-gap: 24px;
+    }
+
+    .hero-panel .title {
+      margin-bottom: 0.22rem;
+    }
+
+    .hero-panel .subtitle {
+      margin-bottom: 18px;
+    }
+
+    .hero-panel .title {
+      color: #fcf8f3;
+      max-width: 85%;
+    }
+
+    .hero-panel .subtitle {
+      color: rgba(252, 248, 243, 0.86);
+      max-width: 36ch;
+    }
+
+    .hero-list {
+      display: grid;
+      gap: 14px;
+      align-content: center;
+    }
+
+    .hero-list .hero-chip {
+      font-size: 1.6rem;
+      line-height: 1.25;
+      padding: 14px 16px;
+      max-width: 92%;
+    }
+
+    .hero-list .hero-chip strong {
+      font-size: 1.95rem;
+      line-height: 1.15;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .hero-chip {
+      border-left: 4px solid var(--accent);
+      padding: 10px 0 10px 16px;
+      font-size: 1.05rem;
+      color: var(--muted);
+    }
+
+    .quote {
+      background: linear-gradient(135deg, rgba(178,95,58,0.10), rgba(214,159,57,0.10));
+      border: 1px solid rgba(178,95,58,0.16);
+      border-radius: 30px;
+      padding: 28px 30px;
+      font-family: Georgia, "Palatino Linotype", serif;
+      font-size: clamp(1.45rem, 2.4vw, 2.15rem);
+      line-height: 1.2;
+      color: var(--ink);
+      max-width: 30ch;
+    }
+
+    .conclusion-text {
+      margin: 0;
+      font-size: 1.18rem;
+      color: var(--muted);
+      max-width: 80%;
+      line-height: 1.35;
+    }
+
+    .conclusion-points {
+      margin-top: 6px;
+      max-width: 90%;
+      display: grid;
+      gap: 10px;
+    }
+
+    .conclusion-points li {
+      font-size: 1.35rem;
+      line-height: 1.35;
+    }
+
+    .quote-wide {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .case-layout {
+      display: grid;
+      grid-template-columns: 2fr 1.2fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .chat-preview {
+      max-height: 300px;
+      min-height: 260px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px 16px 14px;
+      box-shadow: 0 8px 24px rgba(74, 63, 42, 0.08);
+      display: grid;
+      gap: 8px;
+      overflow: hidden;
+      justify-items: stretch;
+      align-content: start;
+    }
+
+    .bubble {
+      padding: 10px 12px;
+      border-radius: 16px;
+      max-width: 94%;
+      line-height: 1.22;
+      font-size: 0.8rem;
+    }
+
+    .bubble.user {
+      justify-self: start;
+      background: #f3e8de;
+      border: 1px solid rgba(178, 95, 58, 0.22);
+      color: #6f4a2f;
+    }
+
+    .bubble.bot {
+      justify-self: end;
+      background: #eef4e8;
+      border: 1px solid rgba(106, 130, 88, 0.2);
+      color: #36513b;
+    }
+
+    .chat-cta {
+      justify-self: end;
+      margin-top: 2px;
+      padding: 8px 16px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fffaf3;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: lowercase;
+      cursor: default;
+    }
+
+    .case-cards {
+      margin-top: 14px;
+    }
+
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .risk-bubbles {
+      display: grid;
+      gap: 14px;
+    }
+
+    .risk {
+      padding: 18px 18px 16px;
+      border-radius: 24px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+    }
+
+    .risk-bubble {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(249, 243, 232, 0.95));
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 14px 16px;
+      box-shadow: 0 6px 16px rgba(74, 63, 42, 0.06);
+      max-width: 82ch;
+    }
+
+    .principio-slide .content {
+      padding: 34px 44px 24px;
+    }
+
+    .principio-layout {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .principio-content {
+      display: grid;
+      gap: 22px;
+      min-width: 0;
+    }
+
+    .principio-visual {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+
+    .principio-visual img {
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 24px rgba(74, 63, 42, 0.12);
+      object-fit: cover;
+      background: var(--paper);
+    }
+
+    .risk-summary-compact .content {
+      gap: 10px;
+    }
+
+    .risk-summary-compact .title {
+      margin: 6px 0;
+    }
+
+    .risk-summary-compact .risk-grid {
+      gap: 22px;
+      align-content: stretch;
+      grid-auto-rows: 1fr;
+    }
+
+    .risk-summary-compact .risk {
+      padding: 24px 18px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      min-height: 160px;
+    }
+
+    .risk-summary-compact .risk strong {
+      margin-bottom: 12px;
+    }
+
+    .risk-summary-compact .risk p {
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    .risk strong {
+      display: block;
+      color: var(--accent);
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .risk p {
+      margin: 0;
+      line-height: 1.35;
+      color: var(--muted);
+    }
+
+    .risk-bubble strong {
+      display: block;
+      color: var(--accent);
+      margin-bottom: 6px;
+      font-size: 1.02rem;
+      font-weight: 700;
+    }
+
+    .risk-bubble p {
+      margin: 0;
+      line-height: 1.35;
+      color: var(--muted);
+    }
+
+    .principle-plan {
+      margin-top: auto;
+      border-left: 6px solid var(--accent);
+      background: rgba(255, 255, 255, 0.88);
+    }
+
+    .principle-plan h3 {
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+
+    .matrix-wrap {
+      background: rgba(255,255,255,0.72);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 16px;
+      display: grid;
+      justify-items: center;
+    }
+
+    .matrix-wrap img {
+      width: 100%;
+      max-height: 74vh;
+      object-fit: contain;
+      border-radius: 18px;
+    }
+
+    .contingency-wrap {
+      width: 95%;
+      max-width: 95%;
+    }
+
+    .contingency-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255,255,255,0.94);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      font-size: 0.98rem;
+    }
+
+    .contingency-slide .content {
+      align-content: start;
+      gap: 12px;
+      padding-top: 22px;
+    }
+
+    .contingency-table th,
+    .contingency-table td {
+      border: 1px solid #d7cbbc;
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .contingency-table th {
+      background: #efe3d4;
+      color: #2b4a44;
+      font-size: 0.96rem;
+      font-weight: 700;
+    }
+
+    .contingency-row-high {
+      background: rgba(240, 170, 150, 0.20);
+    }
+
+    .contingency-row-medium {
+      background: rgba(248, 220, 150, 0.25);
+    }
+
+    .contingency-row-low {
+      background: rgba(189, 219, 180, 0.22);
+    }
+
+    .contingency-table th:nth-child(3),
+    .contingency-table th:nth-child(4),
+    .contingency-table td:nth-child(3),
+    .contingency-table td:nth-child(4),
+    .contingency-table th:nth-child(5),
+    .contingency-table td:nth-child(5) {
+      text-align: center;
+    }
+
+    .contingency-note {
+      margin-top: 10px;
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.32;
+      max-width: 95%;
+    }
+
+    .footer {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+      align-items: center;
+      padding: 16px 28px 22px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .footer span:first-child {
+      align-self: start;
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .footer span:last-child {
+      align-self: end;
+      justify-self: end;
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .nav {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      display: flex;
+      gap: 10px;
+      z-index: 20;
+    }
+
+    .nav button {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      background: var(--ink);
+      color: #fffaf3;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(33, 57, 52, 0.22);
+    }
+
+    .nav button:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .counter {
+      background: rgba(255,255,255,0.86);
+      border: 1px solid rgba(121, 97, 68, 0.18);
+      border-radius: 999px;
+      padding: 12px 16px;
+      color: var(--ink);
+      font-weight: 700;
+      min-width: 84px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+
+    @media (max-width: 980px) {
+      body {
+        padding: 14px;
+      }
+
+      .slide {
+        min-height: auto;
+      }
+
+      .two-col,
+      .hero,
+      .risk-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .principio-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .principio-visual {
+        margin-top: 8px;
+      }
+
+      .case-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .content {
+        padding: 24px 20px 20px;
+      }
+
+      .hero-panel {
+        padding: 28px 22px;
+      }
+
+      .footer {
+        padding: 14px 20px 20px;
+      }
+
+      .quote-wide {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .quote {
+        max-width: 100%;
+      }
+
+      .case-cards {
+        margin-top: 10px;
+      }
+
+      .chat-preview {
+        max-height: none;
+      }
+
+      .risk-bubble {
+        max-width: none;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 8mm;
+      }
+
+      body {
+        background: #fff;
+        padding: 0;
+      }
+
+      .deck {
+        max-width: none;
+        width: 100%;
+      }
+
+      .nav,
+      .counter {
+        display: none !important;
+      }
+
+      .slide {
+        display: grid !important;
+        min-height: auto !important;
+        height: 100vh;
+        page-break-after: always;
+        break-inside: avoid;
+        margin: 0;
+      }
+
+      .slide:last-child {
+        page-break-after: auto;
+      }
+
+      .principio-slide .content,
+      .content,
+      .slide-grid {
+        overflow: visible;
+      }
+
+      .hero-panel {
+        align-content: start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck">
+    <section class="slide active hero">
+      <div class="hero-panel">
+        <span class="kicker">Trabajo Práctico Final</span>
+        <h1 class="title">Asistente farmacéutico con IA</h1>
+        <p class="subtitle">Ética de la Inteligencia Artificial</p>
+      </div>
+      <div class="content hero-list">
+        <div class="hero-chip"><strong>Grupo 1</strong><br>Josmar Brazón<br>Daniela Soledad Putrino<br>Leandro Saraco</div>
+      </div>
+    </section>
+
+      <section class="slide slide-grid contingency-slide">
+      <div class="band">Caso de estudio</div>
+      <div class="content">
+        <span class="kicker">Descripción</span>
+        <h2 class="title">Una aplicación que recomienda medicamentos</h2>
+        <div class="case-layout">
+          <div class="quote quote-wide">
+            El chatbot interpreta síntomas menores, sugiere principios activos o marcas específicas y empuja la compra inmediata.
+          </div>
+          <div class="chat-preview">
+            <div class="bubble user">Hola, tengo dolor de garganta desde ayer y algo de fiebre.</div>
+            <div class="bubble bot">Gracias por comentar. ¿Tenés dificultad para tragar o respiración?</div>
+            <div class="bubble user">No, solo dolor y tos leve.</div>
+            <div class="bubble bot">Puede tratarse de un cuadro leve. Te recomendo paracetamol 500mg c/8hs, y revisar alergias.</div>
+            <button class="chat-cta">Comprar Medicamento</button>
+          </div>
+        </div>
+        <div class="case-cards two-col">
+          <div class="card">
+            <h3>Qué integra</h3>
+            <ul>
+              <li>Gestión de medicamentos bajo receta y de venta libre.</li>
+              <li>Validación de credenciales.</li>
+              <li>Asistente virtual basado en IA.</li>
+            </ul>
+          </div>
+          <div class="card green">
+            <h3>Riesgo central</h3>
+            <ul>
+              <li>La recomendación automatizada desplaza parte del rol del farmacéutico.</li>
+              <li>La decisión deja de ser solo comercial y pasa a afectar salud y seguridad del usuario.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer"><span>Ética de la IA</span><span>2</span></div>
+    </section>
+
+    <section class="slide slide-grid">
+      <div class="band">Metodología</div>
+      <div class="content">
+        <span class="kicker">Marco de análisis</span>
+        <h2 class="title">Cómo se evaluó el caso</h2>
+        <div class="single-col">
+          <div class="card">
+            <h3>Base conceptual</h3>
+            <ul>
+              <li>Marco Ético para la IA en Colombia.</li>
+              <li>Análisis por ética de los datos, de los algoritmos y de las prácticas.</li>
+              <li>Priorización posterior con matriz y plan de contingencia.</li>
+            </ul>
+          </div>
+          <div class="card gold">
+            <h3>Principios analizados</h3>
+            <ul>
+              <li>Transparencia y explicación.</li>
+              <li>Privacidad.</li>
+              <li>Control humano de las decisiones propias de un sistema de inteligencia artificial.</li>
+              <li>Seguridad.</li>
+              <li>Responsabilidad.</li>
+              <li>No discriminación.</li>
+              <li>Inclusión.</li>
+              <li>Beneficio social.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer"><span>Ética de la IA</span><span>3</span></div>
+    </section>
+
+    <section class="slide slide-grid principio-slide">
+      <div class="band">Principio ético</div>
+      <div class="content">
+        <div class="principio-layout">
+          <div class="principio-content">
+            <span class="kicker">Principio de transparencia</span>
+            <h2 class="title">Transparencia y explicación</h2>
+            <div class="risk-bubbles">
+              <div class="risk-bubble">
+                <strong>Riesgo: opacidad de la recomendación</strong>
+                <p>El usuario no ve por qué se sugiere un medicamento y asume que es la opción correcta por defecto.</p>
+              </div>
+              <div class="risk-bubble">
+                <strong>Riesgo: falta de advertencias funcionales</strong>
+                <p>La app no indica límites de uso ni que no reemplaza consulta médica o farmacéutica.</p>
+              </div>
+              <div class="risk-bubble">
+                <strong>Riesgo: sesgo en el mensaje de salida</strong>
+                <p>La respuesta puede priorizar la urgencia comercial sobre la seguridad y la claridad.</p>
+              </div>
+            </div>
+            <div class="card principle-plan">
+              <h3>Plan de acción</h3>
+              <ul>
+                <li>Etiquetar siempre la interacción como asistente IA con explicación breve del alcance.</li>
+                <li>Mostrar las razones de la sugerencia: síntomas coincidentes y contraindicaciones clave.</li>
+                <li>Agregar advertencias de riesgo junto al resultado y opciones de consulta humana inmediata.</li>
+              </ul>
+            </div>
+          </div>
+          <aside class="principio-visual">
+            <img src="imagenes_principios/transparencia_explicacion.png" alt="Ilustración de transparencia y explicación">
+          </aside>
+        </div>
+      </div>
+      <div class="footer"><span>Ética de la IA</span><span>5</span></div>
+    </section>
+
+    <section class="slide slide-grid principio-slide">
+      <div class="band">Principio ético</div>
+      <div class="content">
+        <div class="principio-layout">
+          <div class="principio-content">
+            <span class="kicker">Principio de privacidad</span>
+            <h2 class="title">Privacidad</h2>
+            <div class="risk-bubbles">
+              <div class="risk-bubble">
+                <strong>Riesgo: exceso de datos sensibles</strong>
+                <p>Se recogen síntomas, alergias y hábitos sin necesidad para responder la consulta.</p>
+              </div>
+              <div class="risk-bubble">
+                <strong>Riesgo: trazabilidad incontrolada</strong>
+                <p>Historiales vinculados a identidad real pueden filtrarse o reutilizarse indebidamente.</p>
+              </div>
+              <div class="risk-bubble">
+                <strong>Riesgo: accesos no autorizados</strong>
+                <p>Personal no clínico o servicios externos acceden a mensajes y prescripciones.</p>
+              </div>
+            </div>
+            <div class="card principle-plan">
+              <h3>Plan de acción</h3>
+              <ul>
+                <li>Recoger solo datos estrictamente necesarios y con consentimiento explícito.</li>
+                <li>Aplicar anonimización y cifrado end-to-end en almacenamiento y tránsito.</li>
+                <li>Restringir accesos por rol y registrar todo acceso a expedientes sensibles.</li>
+              </ul>
+            </div>
+          </div>
+          <aside class="principio-visual">
+            <img src="imagenes_principios/privacidad.png" alt="Ilustración de privacidad">
+          </aside>
+        </div>
+      </div>
+      <div class="footer"><span>Ética de la IA</span><span>6</span></div>
+    </section>
+
+    <section class="slide slide-grid principio-slide">
+      <div class="band">Principio ético</div>
+      <div class="content">
+        <div class="principio-layout">
+          <div class="principio-content">
+            <span class="kicker">Principio de control humano</span>
+            <h2 class="title">Control humano de las decisiones propias de un sistema de inteligencia artificial</h2>
+            <div class="risk-bubbles">
+              <div class="risk-bubble">
+                <strong>Riesgo: decisión sin supervisión</strong>
+                <p>La IA decide por sí sola en síntomas de posible gravedad sin intervención experta.</p>
+              </div>
+              <div class="risk-bubble">
+                <strong>Riesgo: ausencia de derivación</strong>
+                <p>No redirige a un profesional ante ambigüedad, embarazo, alergia o interacciones.</p>
+              </div>
+              <div class="risk-bubble">
+                <strong>Riesgo: dependencia total del usuario</strong>
+                <p>El usuario interpreta la salida como receta y no valida con criterio clínico.</p>
+              </div>
+            </div>
+            <div class="card principle-plan">
+              <h3>Plan de acción</h3>
+              <ul>
+                <li>Definir umbrales de riesgo con intervención farmacéutica obligatoria.</li>
+                <li>Incluir botón visible “Hablar con farmacéutico” en cada flujo de recomendación.</li>
+                <li>Bloquear recomendaciones automáticas en consultas críticas o con baja certeza.</li>
+              </ul>
+            </div>
+          </div>
+          <aside class="principio-visual">
+            <img src="imagenes_principios/control_humano_decisiones.png" alt="Ilustración de control humano">
+          </aside>
+        </div>
+      </div>
+      <div class="footer"><span>Ética de la IA</span><span>7</span></div>
+    </section>
+
+    <section class="slide slide-grid principio-slide">
+      <div class="band">Principio ético</div>
+      <div class="content">
+        <div class="principio-layout">
+          <div class="principio-content">
+            <span class="kicker">Principio de seguridad</span>
+            <h2 class="title">Seguridad</h2>
+            <div class="risk-bubbles">
+              <div class="risk-bubble">
+                <strong>Riesgo: dosis incorrecta</strong>
+                <p>Puede sugerirse una posología que no considera edad, peso o comorbilidades.</p>
+              </div>
+              <div class="risk-bubble">
+                <strong>Riesgo: conocimiento desactualizado</strong>
+                <p>El bot usa base de datos o reglas clínicas con información médica obsoleta.</p>
+              </div>
+              <div class="risk-bubble">
+                <strong>Riesgo: manipulación del entorno</strong>
+                <p>Ataques o prompts maliciosos alteran respuestas para inducir consumo indebido.</p>
+              </div>
+            </div>
+            <div class="card principle-plan">
+              <h3>Plan de acción</h3>
+              <ul>
+                <li>Validación clínica continua de reglas y dosis para cada actualización del sistema.</li>
+                <li>Chequear interacciones, alergias y duplicación terapéutica en tiempo real.</li>
+                <li>Aplicar hardening de API, protección anti-abuso y revisión periódica de prompts.</li>
+              </ul>
+            </div>
+          </div>
+          <aside class="principio-visual">
+            <img src="imagenes_principios/seguridad.png" alt="Ilustración de seguridad">
+          </aside>
+        </div>
+      </div>
+      <div class="footer"><span>Ética de la IA</span><span>8</span></div>
+    </section>
+
+    <section class="slide slide-grid principio-slide">
+      <div class="band">Principio ético</div>
+      <div class="content">
+        <div class="principio-layout">
+          <div class="principio-content">
+            <span class="kicker">Principio de responsabilidad</span>
+            <h2 class="title">Responsabilidad</h2>
+            <div class="risk-bubbles">
+              <div class="risk-bubble">
+                <strong>Riesgo: ausencia de titular del sistema</strong>
+                <p>No queda claro quién responde por un daño causado por una recomendación errónea.</p>
+              </div>
+              <div class="risk-bubble">
+                <strong>Riesgo: trazabilidad insuficiente</strong>
+                <p>Las decisiones y cambios de modelo no quedan registrados para revisión.</p>
+              </div>
+              <div class="risk-bubble">
+                <strong>Riesgo: falta de rendición de cuentas</strong>
+                <p>No existe protocolo de respuesta ante incidentes con plazos y responsables.</p>
+              </div>
+            </div>
+            <div class="card principle-plan">
+              <h3>Plan de acción</h3>
+              <ul>
+                <li>Definir RACI por módulo, con dueño funcional y técnico del riesgo.</li>
+                <li>Conservar bitácora inmutable de versiones, prompts, datos y cambios aprobados.</li>
+                <li>Implementar protocolo de incidentes y auditorías trimestrales de cumplimiento.</li>
+              </ul>
+            </div>
+          </div>
+          <aside class="principio-visual">
+            <img src="imagenes_principios/responsabilidad.png" alt="Ilustración de responsabilidad">
+          </aside>
+        </div>
+      </div>
+      <div class="footer"><span>Ética de la IA</span><span>9</span></div>
+    </section>
+
+    <section class="slide slide-grid principio-slide">
+      <div class="band">Principio ético</div>
+      <div class="content">
+        <div class="principio-layout">
+          <div class="principio-content">
+            <span class="kicker">Principio de no discriminación</span>
+            <h2 class="title">No discriminación</h2>
+            <div class="risk-bubbles">
+              <div class="risk-bubble">
+                <strong>Riesgo: sesgo por forma de consulta</strong>
+                <p>Usuarios con menos ortografía o distinto nivel de lenguaje reciben respuestas menos precisas.</p>
+              </div>
+              <div class="risk-bubble">
+                <strong>Riesgo: sesgo comercial</strong>
+                <p>Se priorizan productos con mayor margen de ganancia en vez de los más apropiados.</p>
+              </div>
+              <div class="risk-bubble">
+                <strong>Riesgo: inequidad territorial</strong>
+                <p>El historial de entrenamiento subrepresenta perfiles regionales o vulnerables.</p>
+              </div>
+            </div>
+            <div class="card principle-plan">
+              <h3>Plan de acción</h3>
+              <ul>
+                <li>Auditar outputs por cohorte (edad, sexo, localidad, forma de redacción).</li>
+                <li>Balancear datos de entrenamiento y pruebas para reducir sesgos de recomendación.</li>
+                <li>Aplicar reglas de ranking ético: priorizar pertinencia clínica y no rentabilidad.</li>
+              </ul>
+            </div>
+          </div>
+          <aside class="principio-visual">
+            <img src="imagenes_principios/no_discriminacion.png" alt="Ilustración de no discriminación">
+          </aside>
+        </div>
+      </div>
+      <div class="footer"><span>Ética de la IA</span><span>10</span></div>
+    </section>
+
+    <section class="slide slide-grid principio-slide">
+      <div class="band">Principio ético</div>
+      <div class="content">
+        <div class="principio-layout">
+          <div class="principio-content">
+            <span class="kicker">Principio de inclusión</span>
+            <h2 class="title">Inclusión</h2>
+            <div class="risk-bubbles">
+              <div class="risk-bubble">
+                <strong>Riesgo: barrera comunicativa</strong>
+                <p>Textos técnicos e indirectos dificultan la comprensión de personas no expertas.</p>
+              </div>
+              <div class="risk-bubble">
+                <strong>Riesgo: exclusión tecnológica</strong>
+                <p>Falta de alternativas de acceso para usuarios con baja conectividad o discapacidad.</p>
+              </div>
+              <div class="risk-bubble">
+                <strong>Riesgo: interacción inaccesible</strong>
+                <p>Diseño sin contraste, tamaño de texto o navegación asistida limita el uso.</p>
+              </div>
+            </div>
+            <div class="card principle-plan">
+              <h3>Plan de acción</h3>
+              <ul>
+                <li>Usar lenguaje simple y mensajes paso a paso con iconografía de apoyo.</li>
+                <li>Agregar modo de alto contraste, tipografía adaptable y lectura por voz.</li>
+                <li>Validar prototipos con usuarios diversos antes de escala y en cada versión.</li>
+              </ul>
+            </div>
+          </div>
+          <aside class="principio-visual">
+            <img src="imagenes_principios/inclusion.png" alt="Ilustración de inclusión">
+          </aside>
+        </div>
+      </div>
+      <div class="footer"><span>Ética de la IA</span><span>11</span></div>
+    </section>
+
+    <section class="slide slide-grid principio-slide">
+      <div class="band">Principio ético</div>
+      <div class="content">
+        <div class="principio-layout">
+          <div class="principio-content">
+            <span class="kicker">Principio de beneficio social</span>
+            <h2 class="title">Beneficio social</h2>
+            <div class="risk-bubbles">
+              <div class="risk-bubble">
+                <strong>Riesgo: priorización de venta sobre cuidado</strong>
+                <p>El sistema promueve consumo inmediato aunque no sea clínicamente conveniente.</p>
+              </div>
+              <div class="risk-bubble">
+                <strong>Riesgo: medicalización excesiva</strong>
+                <p>Incrementa la automedicación y retrasa la consulta prescripta.</p>
+              </div>
+              <div class="risk-bubble">
+                <strong>Riesgo: impacto social adverso</strong>
+                <p>Beneficia solo a ciertos grupos y reproduce desigualdad en atención primaria.</p>
+              </div>
+            </div>
+            <div class="card principle-plan">
+              <h3>Plan de acción</h3>
+              <ul>
+                <li>Definir KPIs de seguridad poblacional, adherencia y derivación.</li>
+                <li>Desvincular objetivos comerciales del ranking de recomendaciones.</li>
+                <li>Revisar trimestralmente resultados con comité de salud y comunidad.</li>
+              </ul>
+            </div>
+          </div>
+          <aside class="principio-visual">
+            <img src="imagenes_principios/beneficio_social.png" alt="Ilustración de beneficio social">
+          </aside>
+        </div>
+      </div>
+      <div class="footer"><span>Ética de la IA</span><span>11</span></div>
+    </section>
+
+    <section class="slide slide-grid risk-summary-compact">
+      <div class="band">Resumen de los riesgos de la aplicación</div>
+      <div class="content">
+        <span class="kicker">Traducción del problema</span>
+        <h2 class="title">Resumen de los riesgos de la aplicación</h2>
+        <div class="risk-grid">
+          <div class="risk"><strong>Fuga de datos de salud</strong><p>Exposición de síntomas, antecedentes, alergias o historial de búsqueda médica.</p></div>
+          <div class="risk"><strong>Recomendación errónea</strong><p>La aplicación sugiere un medicamento inadecuado para el síntoma o contexto.</p></div>
+          <div class="risk"><strong>Falla en casos críticos</strong><p>No detecta señales de alarma y trata como leve una situación riesgosa.</p></div>
+          <div class="risk"><strong>Falta de derivación</strong><p>No escala a farmacéutico cuando hay antecedentes, interacciones o ambigüedad.</p></div>
+          <div class="risk"><strong>Sesgo comercial</strong><p>Prioriza medicamentos más caros o más rentables antes que los más adecuados.</p></div>
+          <div class="risk"><strong>Automedicación inducida</strong><p>El usuario interpreta la sugerencia como diagnóstico suficiente.</p></div>
+          <div class="risk"><strong>Interacciones peligrosas</strong><p>Combinaciones con otros fármacos o condiciones clínicas no detectadas por el asistente.</p></div>
+          <div class="risk"><strong>Dependencia tecnológica</strong><p>Usuarios retrasan consulta farmacéutica presencial por confiar excesivamente en la app.</p></div>
+          <div class="risk"><strong>Incumplimiento regulatorio</strong><p>La app sugiere bajo parámetros que no están alineados con protocolos sanitarios vigentes.</p></div>
+        </div>
+      </div>
+      <div class="footer"><span>Ética de la IA</span><span>12</span></div>
+    </section>
+
+    <section class="slide slide-grid">
+      <div class="band">Priorización</div>
+      <div class="content">
+        <span class="kicker">Matriz de riesgos</span>
+        <h2 class="title">Visualización de impacto y probabilidad</h2>
+        <div class="matrix-wrap">
+          <img src="matriz_riesgos_a4.png" alt="Matriz de riesgos">
+        </div>
+      </div>
+      <div class="footer"><span>Ética de la IA</span><span>13</span></div>
+    </section>
+
+    <section class="slide slide-grid">
+      <div class="band">Contingencia</div>
+      <div class="content">
+        <h2 class="title" style="font-size: 2rem;">Plan de contingencia (Top 10)</h2>
+        <div class="contingency-wrap">
+          <table class="contingency-table">
+            <thead>
+              <tr>
+                <th>Riesgo</th>
+                <th>Probabilidad</th>
+                <th>Impacto</th>
+                <th>Puntaje</th>
+                <th>Estrategia</th>
+                <th>Plan de contingencia</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="contingency-row-high">
+                <td>Fuga de datos de salud</td>
+                <td>8</td>
+                <td>9</td>
+                <td>72</td>
+                <td>Evitar</td>
+                <td>Cifrar bases de datos y comunicaciones, exigir doble factor de autenticación, segmentar accesos y auditar eventos de seguridad.</td>
+              </tr>
+              <tr class="contingency-row-high">
+                <td>Recomendación errónea de medicamento</td>
+                <td>8</td>
+                <td>9</td>
+                <td>72</td>
+                <td>Evitar</td>
+                <td>Validar la aplicación con casos reales, restringir recomendaciones a venta libre y bloquear respuestas con baja confianza.</td>
+              </tr>
+              <tr class="contingency-row-high">
+                <td>Falla en la detección de casos críticos</td>
+                <td>7</td>
+                <td>10</td>
+                <td>70</td>
+                <td>Evitar</td>
+                <td>Definir reglas de alarma y derivar automáticamente a farmacéutico o médico ante síntomas, antecedentes o combinaciones de riesgo.</td>
+              </tr>
+              <tr class="contingency-row-medium">
+                <td>Falta de derivación a un farmacéutico</td>
+                <td>7</td>
+                <td>9</td>
+                <td>63</td>
+                <td>Evitar</td>
+                <td>Permitir atención humana desde el inicio y forzar derivación cuando haya embarazo, lactancia, niñez, interacciones o antecedentes médicos.</td>
+              </tr>
+              <tr class="contingency-row-medium">
+                <td>Recomendación de medicamento contraindicado</td>
+                <td>6</td>
+                <td>10</td>
+                <td>60</td>
+                <td>Evitar</td>
+                <td>Contrastar síntomas con alergias, antecedentes y medicación concomitante antes de sugerir un producto.</td>
+              </tr>
+              <tr class="contingency-row-medium">
+                <td>Uso indebido de datos personales</td>
+                <td>7</td>
+                <td>8</td>
+                <td>56</td>
+                <td>Mitigar</td>
+                <td>Limitar la recolección, pedir consentimiento claro, separar uso asistencial del comercial y prohibir cesión o reutilización no autorizada.</td>
+              </tr>
+              <tr class="contingency-row-medium">
+                <td>Automedicación riesgosa inducida por la aplicación</td>
+                <td>7</td>
+                <td>8</td>
+                <td>56</td>
+                <td>Mitigar</td>
+                <td>Mostrar límites del sistema, advertencias visibles y mensajes de derivación para evitar que la recomendación se interprete como diagnóstico.</td>
+              </tr>
+              <tr class="contingency-row-medium">
+                <td>Fallas del modelo o alucinaciones</td>
+                <td>6</td>
+                <td>9</td>
+                <td>54</td>
+                <td>Mitigar</td>
+                <td>Restringir el dominio de respuesta, monitorear errores y escalar a atención humana cuando el sistema no tenga suficiente certeza.</td>
+              </tr>
+              <tr class="contingency-row-low">
+                <td>Exceso de recolección de datos</td>
+                <td>7</td>
+                <td>7</td>
+                <td>49</td>
+                <td>Mitigar</td>
+                <td>Pedir solo datos necesarios para responder la consulta y anonimizar identidad mediante IDs cuando sea posible.</td>
+              </tr>
+              <tr class="contingency-row-low">
+                <td>Falta de transparencia sobre el uso de IA</td>
+                <td>8</td>
+                <td>6</td>
+                <td>48</td>
+                <td>Mitigar</td>
+                <td>Informar en todo momento que el usuario interactúa con IA y aclarar qué puede hacer la aplicación y qué no.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="contingency-note">* Se seleccionaron los 10 riesgos con mayor puntaje en la matriz de riesgos del informe.</p>
+      </div>
+      <div class="footer"><span>Ética de la IA</span><span>14</span></div>
+    </section>
+
+    <section class="slide slide-grid">
+      <div class="band">Cierre</div>
+      <div class="content">
+        <span class="kicker">Conclusión</span>
+        <h2 class="title">Conclusiones</h2>
+        <p class="conclusion-text">La cuestión no es usar IA, sino cómo usarla.</p>
+        <ul class="conclusion-points">
+          <li>La automatización es viable solo con validación clínica mínima y trazabilidad completa de decisiones.</li>
+          <li>El riesgo más grande es la recomendación inadecuada: se limita con reglas de seguridad, umbrales de derivación y supervisión humana.</li>
+          <li>El riesgo mayor de privacidad exige mínima recolección de datos, cifrado y segmentación estricta de accesos.</li>
+          <li>La falta de derivación en casos críticos se controla con bloqueos de baja confianza, preguntas de alarma y escaleo automático al farmacéutico.</li>
+          <li>El riesgo de sesgo y sobre-medicalización se reduce con auditorías periódicas, métricas por cohortes y ranking ético de respuestas.</li>
+        </ul>
+      </div>
+      <div class="footer"><span>Ética de la IA</span><span>15</span></div>
+    </section>
+  </div>
+
+  <div class="nav">
+    <button id="prev">← Anterior</button>
+      <div class="counter" id="counter">1 / 15</div>
+    <button id="next">Siguiente →</button>
+  </div>
+
+  <script>
+    const slides = [...document.querySelectorAll('.slide')];
+    const counter = document.getElementById('counter');
+    const prev = document.getElementById('prev');
+    const next = document.getElementById('next');
+    let index = 0;
+
+    function getIndexFromHash() {
+      const raw = window.location.hash.slice(1);
+      const parsed = Number.parseInt(raw, 10);
+      if (Number.isInteger(parsed) && parsed >= 1 && parsed <= slides.length) {
+        return parsed - 1;
+      }
+      return 0;
+    }
+
+    function setActiveSlide(newIndex) {
+      const clamped = Math.max(0, Math.min(slides.length - 1, newIndex));
+      const targetHash = `#${clamped + 1}`;
+      if (window.location.hash !== targetHash) {
+        window.location.hash = targetHash;
+      } else if (clamped !== index) {
+        index = clamped;
+        render();
+      }
+    }
+
+    function render() {
+      slides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+      counter.textContent = `${index + 1} / ${slides.length}`;
+      prev.disabled = index === 0;
+      next.disabled = index === slides.length - 1;
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    prev.addEventListener('click', () => {
+      if (index > 0) {
+        setActiveSlide(index - 1);
+      }
+    });
+
+    next.addEventListener('click', () => {
+      if (index < slides.length - 1) {
+        setActiveSlide(index + 1);
+      }
+    });
+
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight' || event.key === 'PageDown' || event.key === ' ') {
+        event.preventDefault();
+        if (index < slides.length - 1) {
+          setActiveSlide(index + 1);
+        }
+      }
+      if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+        event.preventDefault();
+        if (index > 0) {
+          setActiveSlide(index - 1);
+        }
+      }
+      if (event.key === 'Home') {
+        setActiveSlide(0);
+      }
+      if (event.key === 'End') {
+        setActiveSlide(slides.length - 1);
+      }
+    });
+
+    window.addEventListener('hashchange', () => {
+      index = getIndexFromHash();
+      render();
+    });
+
+    index = getIndexFromHash();
+    if (window.location.hash !== `#${index + 1}`) {
+      history.replaceState(null, '', `${window.location.pathname}${window.location.search}#${index + 1}`);
+    }
+    render();
+  </script>
+</body>
+</html>
