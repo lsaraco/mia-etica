@@ -224,6 +224,8 @@
       line-height: 1.2;
       color: var(--ink);
       max-width: 30ch;
+      display: flex;
+      align-items: center;
     }
 
     .conclusion-text {
@@ -255,11 +257,10 @@
       display: grid;
       grid-template-columns: 2fr 1.2fr;
       gap: 20px;
-      align-items: start;
+      align-items: stretch;
     }
 
     .chat-preview {
-      max-height: 300px;
       min-height: 260px;
       background: var(--paper);
       border: 1px solid var(--line);
@@ -312,6 +313,10 @@
 
     .case-cards {
       margin-top: 14px;
+    }
+
+    .case-cards .card {
+      padding: 38px 24px 38px;
     }
 
     .risk-grid {
@@ -448,15 +453,59 @@
       border: 1px solid var(--line);
       border-radius: 28px;
       padding: 16px;
-      display: grid;
-      justify-items: center;
+      overflow-x: auto;
     }
 
-    .matrix-wrap img {
+    .matrix-table {
       width: 100%;
-      max-height: 74vh;
-      object-fit: contain;
-      border-radius: 18px;
+      border-collapse: collapse;
+      font-size: 0.97rem;
+      line-height: 1.25;
+    }
+
+    .matrix-table th,
+    .matrix-table td {
+      border: 1px solid #d7cbbc;
+      padding: 6px 7px;
+      text-align: center;
+      vertical-align: middle;
+      color: var(--ink);
+    }
+
+    .matrix-table th {
+      background: #efe3d4;
+      font-weight: 700;
+      font-size: 0.78rem;
+    }
+
+    .matrix-table th:first-child {
+      min-width: 80px;
+    }
+
+    .matrix-table td:first-child {
+      font-weight: 700;
+      background: #f5f0e6;
+      min-width: 80px;
+    }
+
+    .matrix-table td.cell-red {
+      background: rgba(240, 150, 140, 0.30);
+    }
+
+    .matrix-table td.cell-orange {
+      background: rgba(248, 200, 140, 0.35);
+    }
+
+    .matrix-table td.cell-yellow {
+      background: rgba(248, 230, 160, 0.40);
+    }
+
+    .matrix-table td.cell-green {
+      background: rgba(200, 225, 190, 0.35);
+    }
+
+    .matrix-table td.cell-gray {
+      background: rgba(220, 220, 220, 0.25);
     }
 
     .contingency-wrap {
@@ -711,10 +760,10 @@
       <div class="band">Caso de estudio</div>
       <div class="content">
         <span class="kicker">Descripción</span>
-        <h2 class="title">Una aplicación que recomienda medicamentos</h2>
+        <h2 class="title">Caso de estudio</h2>
         <div class="case-layout">
           <div class="quote quote-wide">
-            El chatbot interpreta síntomas menores, sugiere principios activos o marcas específicas y empuja la compra inmediata.
+            Asistente de IA que interpreta síntomas menores, sugiere medicamentos e integra su compra desde la misma aplicación.
           </div>
           <div class="chat-preview">
             <div class="bubble user">Hola, tengo dolor de garganta desde ayer y algo de fiebre.</div>
@@ -724,6 +773,7 @@
             <button class="chat-cta">Comprar Medicamento</button>
           </div>
         </div>
+        <br>
         <div class="case-cards two-col">
           <div class="card">
             <h3>Qué integra</h3>
@@ -734,10 +784,11 @@
             </ul>
           </div>
           <div class="card green">
-            <h3>Riesgo central</h3>
+            <h3>Riesgos a primera vista</h3>
             <ul>
-              <li>La recomendación automatizada desplaza parte del rol del farmacéutico.</li>
-              <li>La decisión deja de ser solo comercial y pasa a afectar salud y seguridad del usuario.</li>
+              <li>Se pueden filtrar datos personales sensibles del usuario</li>
+              <li>El asistente puede equivocarse y ocasionar daños de salud severos.</li>
+              <li>Impacto en la sociedad: puede generar una tendencia negativa (reemplazar a un profesional por una aplicación) .</li>
             </ul>
           </div>
         </div>
@@ -755,7 +806,7 @@
             <h3>Base conceptual</h3>
             <ul>
               <li>Marco Ético para la IA en Colombia.</li>
-              <li>Análisis por ética de los datos, de los algoritmos y de las prácticas.</li>
+              <li>Análisis por principio. En cada principio se analiza a la vez ética de los datos, de los algoritmos y de las prácticas.</li>
               <li>Priorización posterior con matriz y plan de contingencia.</li>
             </ul>
           </div>
@@ -828,12 +879,12 @@
                 <p>Se recogen síntomas, alergias y hábitos sin necesidad para responder la consulta.</p>
               </div>
               <div class="risk-bubble">
-                <strong>Riesgo: trazabilidad incontrolada</strong>
+                <strong>Riesgo: filtración de datos del paciente</strong>
                 <p>Historiales vinculados a identidad real pueden filtrarse o reutilizarse indebidamente.</p>
               </div>
               <div class="risk-bubble">
                 <strong>Riesgo: accesos no autorizados</strong>
-                <p>Personal no clínico o servicios externos acceden a mensajes y prescripciones.</p>
+                <p>Personal no clínico o servicios externos acceden a información sensible.</p>
               </div>
             </div>
             <div class="card principle-plan">
@@ -1082,10 +1133,10 @@
     </section>
 
     <section class="slide slide-grid risk-summary-compact">
-      <div class="band">Resumen de los riesgos de la aplicación</div>
+      <div class="band">Resumen de los mayores riesgos de la aplicación</div>
       <div class="content">
-        <span class="kicker">Traducción del problema</span>
-        <h2 class="title">Resumen de los riesgos de la aplicación</h2>
+        <span class="kicker">Resumen de riesgos</span>
+        <h2 class="title">Resumen de los mayores riesgos de la aplicación</h2>
         <div class="risk-grid">
           <div class="risk"><strong>Fuga de datos de salud</strong><p>Exposición de síntomas, antecedentes, alergias o historial de búsqueda médica.</p></div>
           <div class="risk"><strong>Recomendación errónea</strong><p>La aplicación sugiere un medicamento inadecuado para el síntoma o contexto.</p></div>
@@ -1104,10 +1155,74 @@
     <section class="slide slide-grid">
       <div class="band">Priorización</div>
       <div class="content">
-        <span class="kicker">Matriz de riesgos</span>
-        <h2 class="title">Visualización de impacto y probabilidad</h2>
+        <span class="kicker">Visualización de impacto y probabilidad</span>
+        <h2 class="title">Matriz de riesgos</h2>
         <div class="matrix-wrap">
-          <img src="matriz_riesgos_a4.png" alt="Matriz de riesgos">
+          <table class="matrix-table">
+            <thead>
+              <tr>
+                <th rowspan="2">Impacto</th>
+                <th colspan="5">Probabilidad</th>
+              </tr>
+              <tr>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>10</td>
+                <td class="cell-gray"></td>
+                <td class="cell-gray"></td>
+                <td class="cell-red">Recomendación de medicamento contraindicado</td>
+                <td class="cell-red">Falla en la detección de casos críticos</td>
+                <td class="cell-red"></td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td class="cell-gray"></td>
+                <td class="cell-gray"></td>
+                <td class="cell-orange">Fallas del modelo o alucinaciones</td>
+                <td class="cell-red">Falta de derivación a un farmacéutico</td>
+                <td class="cell-red">Fuga de datos de salud · Recomendación errónea de medicamento</td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td class="cell-gray"></td>
+                <td class="cell-orange">Manipulación o corrupción de datos</td>
+                <td class="cell-orange">Acceso no autorizado a cuentas o historiales</td>
+                <td class="cell-orange">Uso indebido de datos personales · Automedicación riesgosa inducida por la aplicación</td>
+                <td class="cell-red"></td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td class="cell-gray"></td>
+                <td class="cell-yellow">Discriminación en la calidad de las recomendaciones</td>
+                <td class="cell-orange">Recomendación sesgada por interés comercial · Ausencia de trazabilidad · Compra sin advertencias</td>
+                <td class="cell-orange">Exceso de recolección de datos</td>
+                <td class="cell-orange"></td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td class="cell-gray"></td>
+                <td class="cell-yellow">Difusión de responsabilidad · Exclusión de usuarios vulnerables</td>
+                <td class="cell-yellow"></td>
+                <td class="cell-yellow"></td>
+                <td class="cell-orange">Falta de transparencia sobre el uso de IA</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td class="cell-green">Desvío del fin social de la aplicación</td>
+                <td class="cell-green"></td>
+                <td class="cell-yellow">Falta de explicación de la recomendación</td>
+                <td class="cell-yellow"></td>
+                <td class="cell-yellow"></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
       <div class="footer"><span>Ética de la IA</span><span>13</span></div>
@@ -1225,11 +1340,11 @@
         <h2 class="title">Conclusiones</h2>
         <p class="conclusion-text">La cuestión no es usar IA, sino cómo usarla.</p>
         <ul class="conclusion-points">
-          <li>La automatización es viable solo con validación clínica mínima y trazabilidad completa de decisiones.</li>
-          <li>El riesgo más grande es la recomendación inadecuada: se limita con reglas de seguridad, umbrales de derivación y supervisión humana.</li>
-          <li>El riesgo mayor de privacidad exige mínima recolección de datos, cifrado y segmentación estricta de accesos.</li>
-          <li>La falta de derivación en casos críticos se controla con bloqueos de baja confianza, preguntas de alarma y escaleo automático al farmacéutico.</li>
-          <li>El riesgo de sesgo y sobre-medicalización se reduce con auditorías periódicas, métricas por cohortes y ranking ético de respuestas.</li>
+          <li>La automatización es viable pero se requiere validación clínica y trazabilidad completa de decisiones.</li>
+          <li>Es de vital importancia que el usuario esté notificado de manera clara de las limitaciones y riesgos de la aplicación.</li>
+          <li>El riesgo mayor de privacidad se puede solventar con mínima recolección de datos, cifrado y segmentación estricta de accesos.</li>
+          <li>Es importante aclarar al usuario que la IA no reemplaza ni an médico ni a un farmacéutico: la falta de derivación en casos críticos debe ser un riesgo informado al usuario.</li>
+          <li>Mediante auditorías periódicas, métricas y benchmarks adecuados se pueden reducir riesgos como la sobre-medicación on recomendación de medicamentos adversos.</li>
         </ul>
       </div>
       <div class="footer"><span>Ética de la IA</span><span>15</span></div>
